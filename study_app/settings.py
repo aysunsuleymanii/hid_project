@@ -112,8 +112,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-from decouple import config
-OPENAI_API_KEY = config('OPENAI_API_KEY')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
