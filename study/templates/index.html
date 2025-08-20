@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <style>
+        body {
+            color: #12A78A;
+            padding: 0;
+            margin: 0;
+            height: 100vh; /* full viewport height */
+            display: flex;
+            justify-content: center;  /* horizontal center */
+            align-items: center;      /* vertical center */
+            background-image: url("{% static 'images/bg1.png' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .btn-outline-custom {
+            color: #12A78A;
+            border-color: #12A78A;
+        }
+
+        .btn-outline-custom:hover {
+            color: #fff;
+            background-color: #12A78A;
+            border-color: #12A78A;
+        }
+
+        /* Corner buttons */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .home-btn:hover { color: #fff; }
+
+        .account-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .account-btn:hover { color: #fff; }
+
+        .info-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .info-btn:hover { color: #fff; }
+
+        .container {
+            text-align: center;
+        }
+
+        .app-title {
+            font-size: 100px;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        ul.list-unstyled {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        .btn-outline-custom svg {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Home button -->
+<a href="{% url 'index' %}" class="home-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-house-door" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0L1 7.793V14.5A1.5 1.5 0 0 0 2.5 16h3a.5.5 0 0 0 .5-.5V11a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4.5a.5.5 0 0 0 .5.5h3A1.5 1.5 0 0 0 15 14.5V7.793l-6.646-6.647z"/>
+        <path d="M13 2.5v6.793l-5-5-5 5V2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"/>
+    </svg>
+</a>
+
+<!-- Account button -->
+<a href="{% url 'create_account' %}" class="account-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226
+        4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </svg>
+</a>
+
+<!-- Info button -->
+<a href="{% url 'info' %}" class="info-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-info-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0z"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105
+        1.319.808 1.319.545 0 .875-.252 1.02-.598l.088-.416c.066-.31.137-.42.424-.42h.545l.082-.38h-.545c-.294
+        0-.352-.176-.288-.469l.738-3.468c.194-.897-.105-1.319-.808-1.319-.545 0-.875.252-1.02.598l-.088.416z"/>
+        <circle cx="8" cy="4.5" r="1"/>
+    </svg>
+</a>
+
+<!-- Main content -->
+<div class="container" style="text-align: left; padding-left: 50px;">
+    <p class="app-title" style="text-align: left;">App name</p>
+    <ul class="list-unstyled">
+        <li>
+            <a href="{% url 'flashcard' %}" class="btn btn-outline-custom d-flex justify-content-between align-items-center w-25">
+                Flashcard
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011
+                    1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+                </svg>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'summary_options' %}" class="btn btn-outline-custom d-flex justify-content-between align-items-center w-25">
+                Generate Summary
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011
+                    1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+                </svg>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'assignment_grading' %}" class="btn btn-outline-custom d-flex justify-content-between align-items-center w-25">
+                Assignment Grading
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66
+                    2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

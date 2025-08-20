@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</head>
+<style>
+    body {
+        background: #080F2B;
+        font-family: 'Rajdhani', sans-serif;
+
+    }
+
+    .btn-fill-custom {
+        width: 250px;
+        color: #080F2B;
+        background-color: #12A78A;
+        font-size: 25px;
+    }
+
+    .btn-fill-custom:hover {
+      color: #fff;
+      background-color: #165348;
+    }
+    .center-container {
+        min-height: 100vh;              /* full screen height */
+        display: flex;
+        flex-direction: column;         /* stack button + text field */
+        align-items: center;          /* horizontal center */
+        gap: 20px;                      /* space between items */
+    }
+
+    .question {
+        border-style: solid;
+        padding: 20px 100px 20px 100px;
+
+        border-color: #12A78A;
+        border-radius: 4px;
+    }
+    p{
+        margin-bottom: 0;
+    }
+
+
+
+</style>
+
+<body>
+<div class="center-container d-flex align-items-center justify-content-center">
+    <div class="question">
+
+    <p class=" text text-white fs-4  ">Are you sure you want to leave the deck?</p>
+            </div>
+
+   <div class="d-flex gap-3">
+        <a type="button" class="btn btn-fill-custom d-flex justify-content-center align-items-center"
+           href="{% url 'flashcard'%}">
+            yes
+        </a>
+        <a type="button" class="btn btn-fill-custom d-flex justify-content-center align-items-center"
+           href="{% url 'card' %}">
+            No
+        </a>
+    </div>
+</div>
+</body>
+</html>

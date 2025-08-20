@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</head>
+<style>
+    body {
+        background: #080F2B;
+        font-family: 'Rajdhani', sans-serif;
+    }
+</style>
+
+<body>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="progress" role="progressbar" style="width: 300px;">
+    <div id="progress-bar"
+         class="progress-bar progress-bar-striped bg-success"
+         style="width: 0%">0%
+    </div>
+  </div>
+</div>
+
+<script>
+    let progress = 0;
+    let bar = document.getElementById("progress-bar");
+
+    let interval = setInterval(function() {
+        if (progress >= 100) {
+            clearInterval(interval);
+            // 🔑 Redirect when finished
+            window.location.href = "{% url 'NameFlashcards' %}";
+        } else {
+            progress++;
+            bar.style.width = progress + "%";
+            bar.innerText = progress + "%";
+        }
+    }, 20); // speed: smaller = faster (50ms = ~5s total)
+</script>
+</body>
+</html>

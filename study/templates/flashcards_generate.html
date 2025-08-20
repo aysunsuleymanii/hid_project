@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Flashcards</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <style>
+        #spinner {
+            border: 6px solid #f3f3f3; /* Light grey */
+            border-top: 6px solid #12A78A; /* Green theme */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body style="background:#080F2B; font-family:'Rajdhani', sans-serif; color:#12A78A; text-align:center; padding-top:100px;">
+
+    <h1 id="statusText">Generating Flashcards...</h1>
+
+    <!-- Spinner -->
+    <div id="spinner"></div>
+
+    <!-- Continue button hidden initially -->
+    <div id="continueButtonContainer" style="display:none; margin-top:30px;">
+        <button id="continueBtn"
+                style="padding: 10px 20px; font-size: 16px; border-radius: 10px; border: none; background-color: #12A78A; color: #080F2B; cursor: pointer;">
+            Continue
+        </button>
+    </div>
+
+
+
+    <script>
+        // Simulate flashcard generation delay
+        setTimeout(() => {
+            document.getElementById('statusText').textContent = "Flashcards are generated!";
+            document.getElementById('spinner').style.display = 'none'; // hide spinner
+            document.getElementById('continueButtonContainer').style.display = 'block';
+        }, 2000); // 2 seconds delay for loading effect
+
+        // Continue button click
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            // Redirect to the desired URL
+            window.location.href = "http://127.0.0.1:8000/nameFlashcards/";
+        });
+    </script>
+</body>
+</html>

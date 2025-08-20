@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #080F2B; /* dark blue */
+            font-family: 'Rajdhani', sans-serif;
+            color: white;
+            margin: 0;
+        }
+        .card {
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.05); /* transparent effect */
+            padding: 3rem;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        p {
+            font-size: 1.2rem;
+            color: white;
+        }
+    </style>
+    <script>
+        // Redirect after 3 seconds (3000 milliseconds)
+        setTimeout(function(){
+            window.location.href = "{% url 'index' %}";  // home page url
+        }, 3000);
+    </script>
+</head>
+<body>
+
+<div class="card">
+    <h1>Welcome!</h1>
+    <p>You have successfully signed in. Redirecting to home page...</p>
+</div>
+
+</body>
+</html>

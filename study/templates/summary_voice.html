@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voice Summary</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        body {
+            background-color: #080F2B;
+            font-family: 'Rajdhani', sans-serif;
+            color: #12A78A;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Voice Summary</h1>
+    <hr>
+    <p>{{ summary }}</p>
+    <a href="{% url 'summary_options' %}" class="btn btn-outline-light mt-3">Back</a>
+</div>
+</body>
+</html>

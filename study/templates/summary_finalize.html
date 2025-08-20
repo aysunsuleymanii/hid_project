@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalize Summary</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+    <style>
+        .home-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        border: none;
+        background: transparent;
+        color: #12A78A;
+        font-size: 28px;
+        cursor: pointer;
+    }
+    .home-btn:hover { color: #fff; }
+
+
+    </style>
+</head>
+<body style="background:#080F2B; font-family:'Rajdhani', sans-serif; color:#12A78A; text-align:center; padding-top:50px;">
+
+<div id="popupAlert"
+     style="display:none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background-color: #12A78A; color: #080F2B; padding: 15px 25px;
+            border-radius: 10px; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 9999; text-align: center;">
+</div>
+
+<h1>Finalize Your Summary</h1>
+
+<input type="text" id="summaryName" placeholder="Enter a name"
+       style="padding: 10px; font-size: 16px; border-radius: 5px;
+              border: 2px dashed #12A78A; background-color: transparent;
+              color: #12A78A; width: 250px; margin-top:20px; text-align:center;">
+
+<div class="d-flex gap-3 justify-content-center mt-3">
+    <button id="saveSummary"
+            style="padding: 10px 20px; font-size: 16px; border-radius: 10px; border: none; background-color: #12A78A; color: #080F2B; cursor: pointer;">
+        Save the Summary
+    </button>
+    <button id="generateFlashcards"
+            style="padding: 10px 20px; font-size: 16px; border-radius: 10px; border: none; background-color: #0f8f73; color: #fff; cursor: pointer;">
+        Generate Flashcards
+    </button>
+</div>
+
+
+<a href="{% url 'index' %}" class="home-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-house-door"
+         viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0L1 7.793V14.5A1.5 1.5 0 0 0 2.5 16h3a.5.5 0 0 0 .5-.5V11a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4.5a.5.5 0 0 0 .5.5h3A1.5 1.5 0 0 0 15 14.5V7.793l-6.646-6.647z"/>
+        <path d="M13 2.5v6.793l-5-5-5 5V2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"/>
+    </svg>
+</a>
+
+<div id="continueButtonContainer" style="display:none; margin-top:30px;">
+    <button id="continueBtn"
+            style="padding: 10px 20px; font-size: 16px; border-radius: 10px; border: none; background-color: #12A78A; color: #080F2B; cursor: pointer;">
+        Continue
+    </button>
+</div>
+
+<script>
+    function showPopup(message) {
+        const popup = document.getElementById('popupAlert');
+        popup.textContent = message;
+        popup.style.display = 'block';
+        popup.style.opacity = 0;
+
+        let opacity = 0;
+        const fadeIn = setInterval(() => {
+            opacity += 0.05;
+            popup.style.opacity = opacity;
+            if (opacity >= 1) clearInterval(fadeIn);
+        }, 20);
+
+        setTimeout(() => {
+            let fadeOutOpacity = 1;
+            const fadeOut = setInterval(() => {
+                fadeOutOpacity -= 0.05;
+                popup.style.opacity = fadeOutOpacity;
+                if (fadeOutOpacity <= 0) {
+                    clearInterval(fadeOut);
+                    popup.style.display = 'none';
+                }
+            }, 20);
+        }, 2000);
+    }
+
+    document.getElementById('saveSummary').addEventListener('click', () => {
+        const name = document.getElementById('summaryName').value.trim();
+        if (!name) {
+            showPopup("Please enter a name for your summary.");
+            return;
+        }
+        showPopup(`Summary is saved to downloads`);
+    });
+
+    document.getElementById('generateFlashcards').addEventListener('click', () => {
+        const name = document.getElementById('summaryName').value.trim();
+        if (!name) {
+            showPopup("Please enter a name for your summary.");
+            return;
+        }
+
+        // Show styled popup
+        showPopup("Generating flashcards...");
+
+        // Redirect to flashcards page after short delay
+        setTimeout(() => {
+            window.location.href = "{% url 'flashcards_generate' %}";
+        }, 1500);
+    });
+</script>
+
+</body>
+</html>

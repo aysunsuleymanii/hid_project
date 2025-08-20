@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #080F2B; /* dark blue */
+            font-family: 'Rajdhani', sans-serif;
+            color: white; /* all text white by default */
+        }
+        .card {
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.05); /* transparent dark card */
+            padding: 2rem;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+            color: white;
+        }
+        .form-control {
+            background: transparent !important;
+            border: 1px solid #5dade2; /* light blue border */
+            border-radius: 8px;
+            color: white !important; /* white text inside input */
+        }
+        .form-control::placeholder {
+            color: #d5d8dc !important; /* light gray placeholder */
+        }
+        .form-label {
+            color: white !important;
+        }
+        .btn-custom {
+            background-color: #12A78A;
+            color: white;
+            border-radius: 8px;
+        }
+        .btn-custom:hover {
+            background-color: #0f8a72;
+        }
+        a {
+            color: #5dade2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #82e0aa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <h2 class="text-center mb-4" style="color:white;">Sign In</h2>
+                <form method="post" action="{% url 'sign_in' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-custom">Sign In</button>
+                    </div>
+                </form>
+                <p class="text-center mt-3">
+                    New user? <a href="{% url 'create_account' %}">Create account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

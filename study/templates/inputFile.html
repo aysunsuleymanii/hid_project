@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</head>
+<style>
+    body {
+        background: #080F2B;
+        font-family: 'Rajdhani', sans-serif;
+
+    }
+    .head{
+
+        font-size: 80px;
+        font-weight: 300;
+    }
+    .btn-fill-custom {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        color: #080F2B;
+        background-color: #12A78A;
+    }
+     .btn-fill1-custom {
+        width: 250px;
+        color: #080F2B;
+        background-color: #12A78A;
+        font-size: 25px;
+    }
+
+    .btn-fill1-custom:hover {
+      color: #fff;
+      background-color: #165348;
+    }
+
+    .btn-fill-custom:hover {
+      color: #fff;
+      background-color: #165348;
+    }
+    .center-container {
+        min-height: 100vh;              /* full screen height */
+        display: flex;
+        flex-direction: column;         /* stack button + text field */
+        align-items: center;            /* horizontal center */
+        gap: 20px;                      /* space between items */
+    }
+
+
+</style>
+
+<body><nav class="navbar bg-body-tertiary p-0" >
+  <div class="container-fluid" style="background-color: #080F2B;">
+    <a class="navbar-brand btn text-white" href="{% url 'flashcard' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"></path>
+</svg></a>
+    <div class="d-flex" role="search">
+        <a class="btn text-white " href="{% url 'index' %}">   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2 bi bi-house" viewBox="0 0 16 16">
+  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"></path>
+</svg></a>
+    </div>
+  </div>
+</nav>
+<div class="head container text-white">
+    <p class="pt-5 mb-0">Generate Flashcards from File</p>
+    <hr class="mt-0">
+</div>
+<div class="center-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Hidden file input -->
+        <input type="file" id="fileInput" name="file" style="display:none;" onchange="this.form.submit()">
+
+        <!-- Label styled as button -->
+        <label for="fileInput" class="btn btn-fill-custom d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+            </svg>
+        </label>
+    </form>
+        <h5 class="text-white ">Choose a file</h5>
+    <a type="button" class="btn btn-fill1-custom d-flex justify-content-center align-items-center" href="{% url 'load'%}">
+        Generate Flashcards</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment Grading</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #080F2B;
+            font-family: 'Rajdhani', sans-serif;
+            color: #12A78A;
+        }
+
+        .head {
+            font-size: 80px;
+            font-weight: 300;
+            text-align: left;
+            color: #fff;
+        }
+
+        .head hr {
+            border: 1px solid #12A78A;
+            width: 100%;
+            margin: 0;
+        }
+
+        .link {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: #12A78A;
+        }
+
+        .rectangle {
+            width: 130px;
+            height: 170px;
+            border: 3px dashed #12A78A;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease-in-out;
+            font-size: 40px;
+            color: #12A78A;
+            background: transparent;
+        }
+
+        .rectangle:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+            background: rgba(18,167,138,0.1);
+        }
+
+        .rectangle-solid {
+            width: 130px;
+            height: 170px;
+            border: 3px solid #12A78A;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease-in-out;
+            font-size: 40px;
+            color: #12A78A;
+            background: transparent;
+        }
+
+        .rectangle-solid:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+            background: rgba(18,167,138,0.1);
+        }
+
+        #loadingMessage {
+            display: none;
+            margin-top: 20px;
+            font-size: 22px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="head container text-white">
+    <p class="pt-5 mb-0">Assignment Grading</p>
+    <hr class="mt-0">
+</div>
+
+<div class="container mt-5">
+    <div class="d-flex flex-row gap-5 align-items-start">
+        <a href="javascript:void(0);" id="notesLink" class="link">
+            <div id="import" class="rectangle">
+                <i class="bi bi-upload"></i>
+            </div>
+            <input type="file" id="notesFile" style="display: none;" accept=".txt,.pdf,.doc,.docx"/>
+            <span>Add file to check</span>
+
+        </a>
+
+         <div class="description" style="margin-top:80px; color:lightgray; font-style:italic; ">Click here to choose
+                a file to check.
+            </div>
+
+        <a href="javascript:void(0);" id="hcidLink" class="link">
+            <div class="rectangle-solid">
+                <i class="bi bi-folder"></i>
+            </div>
+            <span>HCID</span>
+        </a>
+        <div class="description" style="margin-top:80px; color:lightgray; font-style:italic; ">Click here to see the
+            results of the exam.
+        </div>
+
+    </div>
+
+    <div id="continueDiv" class="description" style="font-style:italic; margin-top:70px;">Click anywhere to continue.
+
+
+        <div id="loadingMessage">Checking the file...</div>
+    </div>
+
+    <script>
+        const notesLink = document.getElementById("notesLink");
+        const notesFile = document.getElementById("notesFile");
+        const loadingMessage = document.getElementById("loadingMessage");
+
+        notesLink.addEventListener("click", () => {
+            notesFile.click();
+        });
+
+        notesFile.addEventListener("change", () => {
+            if (notesFile.files.length > 0) {
+                loadingMessage.style.display = "block";
+
+                setTimeout(() => {
+                    loadingMessage.textContent = "File checked successfully!";
+                }, 3000);
+            }
+        });
+
+         document.getElementById("hcidLink").addEventListener("click", () => {
+            window.location.href = "http://127.0.0.1:8000/hcid/";
+        });
+
+         continueDiv.addEventListener("click", () => {
+        window.location.href = "http://127.0.0.1:8000/assignment_grading/";
+    });
+    </script>
+
+</body>
+</html>

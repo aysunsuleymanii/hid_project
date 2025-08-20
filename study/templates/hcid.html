@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment Grading</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #080F2B;
+            font-family: 'Rajdhani', sans-serif;
+            color: #12A78A;
+        }
+
+        .head {
+            font-size: 80px;
+            font-weight: 300;
+            text-align: left;
+            color: #fff;
+        }
+
+        .head hr {
+            border: 1px solid #12A78A;
+            width: 100%;
+            margin: 0;
+        }
+
+        .rectangle {
+            width: 130px;
+            height: 170px;
+            border: 3px solid #12A78A;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #12A78A;
+            background: transparent;
+            transition: transform 0.2s ease-in-out;
+            padding: 5px;
+            gap: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .rectangle:hover {
+            transform: scale(1.05);
+            background: rgba(18,167,138,0.1);
+        }
+
+        .edit-btn {
+            background: transparent;
+            border: 1px solid #12A78A;
+            border-radius: 5px;
+            color: #12A78A;
+            font-size: 14px;
+            padding: 3px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .edit-btn:hover {
+            background: #12A78A;
+            color: #080F2B;
+            cursor: pointer;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .rect-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .grade-input {
+            width: 50px;
+            text-align: center;
+        }
+
+            .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .home-btn:hover { color: #fff; }
+
+
+    </style>
+</head>
+<body>
+<div class="head container text-white">
+    <p class="pt-5 mb-0">HCID</p>
+    <hr class="mt-0">
+</div>
+
+<a href="{% url 'index' %}" class="home-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-house-door"
+         viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0L1 7.793V14.5A1.5 1.5 0 0 0 2.5 16h3a.5.5 0 0 0 .5-.5V11a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4.5a.5.5 0 0 0 .5.5h3A1.5 1.5 0 0 0 15 14.5V7.793l-6.646-6.647z"/>
+        <path d="M13 2.5v6.793l-5-5-5 5V2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"/>
+    </svg>
+</a>
+<div class="container mt-5">
+    <div class="rect-container">
+
+        <!-- Rectangle 1 -->
+        <div class="rectangle">
+            <i class="bi bi-person" style="font-size: 36px;"></i>
+            <div class="name">Name: Student 1</div>
+            <div class="grade">Grade: <span>A</span></div>
+            <button class="edit-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+        </div>
+
+        <!-- Rectangle 2 -->
+        <div class="rectangle">
+            <i class="bi bi-person" style="font-size: 36px;"></i>
+            <div class="name">Name: Student 2</div>
+            <div class="grade">Grade: <span>B+</span></div>
+            <button class="edit-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+        </div>
+
+        <!-- Rectangle 3 -->
+        <div class="rectangle">
+            <i class="bi bi-person" style="font-size: 36px;"></i>
+            <div class="name">Name: Student 3</div>
+            <div class="grade">Grade: <span>C</span></div>
+            <button class="edit-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+        </div>
+
+        <!-- Rectangle 4 -->
+        <div class="rectangle">
+            <i class="bi bi-person" style="font-size: 36px;"></i>
+            <div class="name">Name: Student 4</div>
+            <div class="grade">Grade: <span>A-</span></div>
+            <button class="edit-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const rectangle = btn.parentElement;
+            const gradeDiv = rectangle.querySelector('.grade');
+            const currentGrade = gradeDiv.querySelector('span').textContent;
+
+            // Replace grade with input
+            gradeDiv.innerHTML = `Grade: <input type="text" class="grade-input" value="${currentGrade}"/>`;
+
+            // Hide edit button
+            btn.style.display = 'none';
+
+            // Add save button
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'edit-btn';
+            saveBtn.innerHTML = '<i class="bi bi-check-lg"></i> Save';
+            rectangle.appendChild(saveBtn);
+
+            // Add remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-btn';
+            removeBtn.innerHTML = '<i class="bi bi-trash"></i>';
+            rectangle.appendChild(removeBtn);
+
+            // Save event
+            saveBtn.addEventListener('click', () => {
+                const newGrade = gradeDiv.querySelector('input').value;
+                gradeDiv.innerHTML = `Grade: <span>${newGrade}</span>`;
+                saveBtn.remove();
+                removeBtn.remove();
+                btn.style.display = 'flex';
+            });
+
+            removeBtn.addEventListener('click', () => {
+                rectangle.remove();
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

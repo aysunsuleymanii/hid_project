@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Summary Option</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #080F2B;
+            font-family: 'Rajdhani', sans-serif;
+            color: #12A78A;
+        }
+
+        .head {
+            font-size: 80px;
+            font-weight: 300;
+            text-align: left;
+            color: #fff;
+        }
+
+        .head hr {
+            border: 1px solid #12A78A;
+            width: 100%;
+            margin: 0;
+        }
+
+        .link {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: #12A78A;
+        }
+
+        .circle {
+            width: 90px;
+            height: 90px;
+            background-color: #12A78A;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease-in-out;
+            font-size: 40px;
+            color: #080F2B;
+        }
+
+        .circle:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        #listeningStatus {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .stopCircle {
+            width: 90px;
+            height: 90px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #fff;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .stopCircle:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            background-color: #ff1a1a;
+        }
+
+        #statusText {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #getSummaryButton {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #12A78A;
+            border: none;
+            border-radius: 10px;
+            color: #080F2B;
+            cursor: pointer;
+        }
+
+        #getSummaryButton:hover {
+            background-color: #0f8f73;
+        }
+
+         /* Corner buttons */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .home-btn:hover { color: #fff; }
+
+        .account-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .account-btn:hover { color: #fff; }
+
+         .info-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            border: none;
+            background: transparent;
+            color: #12A78A;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .info-btn:hover { color: #fff; }
+
+         .description {
+            color: lightgray;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="head container text-white">
+    <p class="pt-5 mb-0">Summary</p>
+    <hr class="mt-0">
+</div>
+
+<div class="container text-center mt-5">
+    <div class="d-flex flex-column gap-4 align-items-center">
+        <div id="voiceLink" class="link">
+            <div id="microphone" class="circle">
+                <i class="bi bi-mic-fill"></i>
+            </div>
+            <span id="voiceText">Generate from Voice</span>
+
+        </div>
+        <div class="description" style="font-style:italic;">Click here to generate summary by listening.</div>
+
+        <a href="{% url 'summary_notes' %}" id="notesLink" class="link">
+            <div id="import" class="circle">
+                <i class="bi bi-upload"></i>
+            </div>
+            <input type="file" id="notesFile" style="display: none;" accept=".txt,.pdf,.doc,.docx"/>
+
+            <span>Generate from Notes</span>
+        </a>
+        <div class="description" style="font-style:italic;">Click here to generate summary from existing notes.</div>
+
+    </div>
+
+
+    <div id="listeningStatus">
+        <div id="statusText">Currently Listening...</div>
+        <div id="stopButton" class="stopCircle">
+            <i class="bi bi-stop-fill"></i>
+        </div>
+    </div>
+
+    <button id="getSummaryButton">Get Summary</button>
+
+
+    <div id="continueDiv" class="description" style="font-style:italic; margin-top:70px;">Click anywhere to continue.
+    </div>
+
+</div>
+
+
+<a href="{% url 'info2' %}" class="info-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-info-circle"
+         viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0z"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105
+        1.319.808 1.319.545 0 .875-.252 1.02-.598l.088-.416c.066-.31.137-.42.424-.42h.545l.082-.38h-.545c-.294
+        0-.352-.176-.288-.469l.738-3.468c.194-.897-.105-1.319-.808-1.319-.545 0-.875.252-1.02.598l-.088.416z"/>
+        <circle cx="8" cy="4.5" r="1"/>
+    </svg>
+</a>
+
+<a href="{% url 'index' %}" class="home-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-house-door"
+         viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0L1 7.793V14.5A1.5 1.5 0 0 0 2.5 16h3a.5.5 0 0 0 .5-.5V11a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4.5a.5.5 0 0 0 .5.5h3A1.5 1.5 0 0 0 15 14.5V7.793l-6.646-6.647z"/>
+        <path d="M13 2.5v6.793l-5-5-5 5V2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"/>
+    </svg>
+</a>
+
+<script>
+
+
+    const voiceLink = document.getElementById('voiceLink');
+    const voiceText = document.getElementById('voiceText');
+    const listeningStatus = document.getElementById('listeningStatus');
+    const stopButton = document.getElementById('stopButton');
+    const notesLink = document.getElementById('notesLink');
+    const getSummaryButton = document.getElementById('getSummaryButton');
+
+    let recognition;
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+    } else {
+        alert("Your browser does not support speech recognition.");
+    }
+
+    voiceLink.addEventListener('click', () => {
+        if (recognition) {
+            recognition.start();
+            listeningStatus.style.display = 'flex';
+            if (notesLink) notesLink.style.display = 'none';
+        }
+    });
+
+    stopButton.addEventListener('click', () => {
+        if (recognition) {
+            recognition.stop();
+            listeningStatus.style.display = 'none';
+            if (notesLink) notesLink.style.display = 'flex';
+            // Change microphone button text to Continue Listening
+            voiceText.textContent = 'Continue Listening';
+            // Show Get Summary button
+            getSummaryButton.style.display = 'inline-block';
+        }
+    });
+
+    recognition && (recognition.onend = () => {
+        listeningStatus.style.display = 'none';
+        if (notesLink) notesLink.style.display = 'flex';
+    });
+
+
+     getSummaryButton.addEventListener('click', () => {
+    window.location.href = "{% url 'summary_finalize' %}";
+});
+
+    const continueDiv = document.getElementById('continueDiv');
+
+        continueDiv.addEventListener('click', function() {
+    window.location.href = "/summary-options";
+        });
+
+</script>
+</body>
+</html>

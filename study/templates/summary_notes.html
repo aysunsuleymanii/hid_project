@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Summary</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        body {
+            background-color: #080F2B;
+            font-family: 'Rajdhani', sans-serif;
+            color: #12A78A;
+            padding: 2rem;
+            text-align: center; /* default for all content */
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: left; /* header aligned left */
+        }
+        .import-btn {
+            width: 120px;
+            height: 120px;
+            background-color: #12A78A;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            color: #080F2B;
+            margin: 2rem auto;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .import-btn:hover {
+            transform: scale(1.1);
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .label-text {
+            display: block;
+            margin-top: 10px;
+            font-size: 20px;
+            color: #12A78A;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Generate Summary from Notes</h1>
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="notesFile" class="import-btn">+</label>
+        <input type="file" id="notesFile" name="notes_file" accept=".txt,.pdf,.doc,.docx" onchange="this.form.submit()">
+        <span class="label-text">Import a file</span>
+    </form>
+</div>
+</body>
+</html>

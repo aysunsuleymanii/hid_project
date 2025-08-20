@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</head>
+<style>
+    body {
+        background: #080F2B;
+        font-family: 'Rajdhani', sans-serif;
+
+    }
+    .head{
+        font-size: 80px;
+        font-weight: 300;
+    }
+    .btn-fill-custom {
+        width: 250px;
+        color: #080F2B;
+        background-color: #12A78A;
+        font-size: 25px;
+    }
+
+    .btn-fill-custom:hover {
+      color: #fff;
+      background-color: #165348;
+    }
+    .center-container {
+        min-height: 100vh;              /* full screen height */
+        display: flex;
+        flex-direction: column;         /* stack button + text field */
+        align-items: center;            /* horizontal center */
+        gap: 20px;                      /* space between items */
+    }
+
+    .custom-textarea {
+        width: 1000px;
+        height: 300px;
+        resize: none;
+        background-color: #080F2B;
+        border-color: #12A78A;
+        border-radius: 0;
+    }
+    .text {
+        margin-left: 255px;
+        margin-bottom: 0;
+    }
+
+</style>
+
+<body>
+<div class="head container text-white">
+    <p class="pt-5 mb-0">Flashcards</p>
+    <hr class="mt-0">
+</div>
+<p class=" text text-white fs-4 ">Enter Text:</p>
+<div class="center-container">
+
+    <textarea class="form-control custom-textarea"></textarea>
+    <a type="button" class="btn btn-fill-custom d-flex justify-content-center align-items-center" href="{% url 'load'%}">
+        Generate Flashcards</a>
+</div>
+</body>
+</html>
